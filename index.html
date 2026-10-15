@@ -9,7 +9,7 @@
 * { box-sizing: border-box; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
 html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow: hidden; font-family: system-ui, sans-serif; color: #cfd5e2; display: flex; align-items: center; justify-content: center; }
 
-/* Perfect Scaled PSP Body */
+/* Responsive Container */
 .psp {
   position: relative;
   width: 100vw;
@@ -25,12 +25,14 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
 
 .psp > * { position: absolute; }
 
-/* Screen Bezel */
+/* Screen Bezel - Centered & Properly Sized */
 .bez {
-  width: 56%;
-  height: 64%;
+  width: 50vw;
+  height: 28vw;
+  max-width: 88vh;
+  max-height: 49vh;
   border-radius: 1.4vw;
-  padding: 0.9vw;
+  padding: 0.8vw;
   background: linear-gradient(#c7ccd6, #7c828f 40%, #4a4f5a);
   box-shadow: 0 0.3vw 0.6vw #000, inset 0 0.2vw 0.1vw rgba(255,255,255,.55);
 }
@@ -61,17 +63,19 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
   place-items: center;
   background: #111;
   color: #fff;
-  font-size: 1.6vw;
+  font-size: 1.5vw;
   text-align: center;
 }
 
 /* D-Pad (Left) */
 .pad {
-  left: 7%;
+  left: 6vw;
   top: 50%;
   transform: translateY(-50%);
-  width: 16%;
-  height: 48%;
+  width: 14vw;
+  height: 14vw;
+  max-width: 24vh;
+  max-height: 24vh;
 }
 .pad::before, .pad::after {
   content: "";
@@ -85,7 +89,7 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
 .pad b {
   position: absolute;
   z-index: 1;
-  font-size: 1.5vw;
+  font-size: 1.4vw;
   color: #aab1c0;
   width: 33%;
   height: 33%;
@@ -93,20 +97,24 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
   place-items: center;
 }
 
-/* Face Buttons (Right) - Clean Diamond Layout */
+/* Face Buttons (Right) - Fixed Diamond Spacing */
 .face {
-  right: 7%;
+  right: 6vw;
   top: 50%;
   transform: translateY(-50%);
-  width: 16vw;
-  height: 48%;
+  width: 14vw;
+  height: 14vw;
+  max-width: 24vh;
+  max-height: 24vh;
 }
 .fb {
   position: absolute;
-  width: 4.8vw;
-  height: 4.8vw;
+  width: 4.2vw;
+  height: 4.2vw;
+  max-width: 7vh;
+  max-height: 7vh;
   border-radius: 50%;
-  font-size: 2vw;
+  font-size: 1.8vw;
   display: grid;
   place-items: center;
   background: radial-gradient(circle at 35% 28%, #8d93a1, #2a2d35 65%, #0e0f12);
@@ -115,21 +123,20 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
   padding: 0;
   border: 0;
 }
-/* Absolute positioning for the diamond shape */
-.fb.triangle { top: 0%; left: 35%; color: #3fd08a; }
-.fb.circle   { top: 35%; right: 0%; color: #e2504f; }
-.fb.cross    { bottom: 0%; left: 35%; color: #5aa0ff; }
-.fb.square   { top: 35%; left: 0%; color: #e07ab8; }
-.fb.on       { transform: scale(.92); filter: brightness(1.5); }
+.fb.triangle { top: 0; left: 50%; transform: translateX(-50%); color: #3fd08a; }
+.fb.circle   { top: 50%; right: 0; transform: translateY(-50%); color: #e2504f; }
+.fb.cross    { bottom: 0; left: 50%; transform: translateX(-50%); color: #5aa0ff; }
+.fb.square   { top: 50%; left: 0; transform: translateY(-50%); color: #e07ab8; }
+.fb.on       { transform: scale(.92) !important; filter: brightness(1.5); }
 
 /* Start / Select */
 .ss {
-  right: 28%;
-  bottom: 4%;
-  width: 14%;
-  height: 7%;
+  right: 24vw;
+  bottom: 3vw;
+  width: 14vw;
+  height: 3.5vw;
   display: flex;
-  gap: 6%;
+  gap: 1vw;
 }
 .ss button {
   flex: 1;
