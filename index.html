@@ -27,14 +27,13 @@ html,body{margin:0;height:100%;background:var(--bg);display:grid;place-items:cen
 @keyframes w{50%{background-position:100% 50%}}
 #menu::before{content:"";position:absolute;inset:0;background:repeating-radial-gradient(ellipse at 50% 130%,rgba(255,255,255,.1) 0 2cqw,transparent 2cqw 4.5cqw)}
 #menu .top{position:absolute;left:1.4cqw;top:1cqw;font-size:1.4cqw;opacity:.85}
-#row{position:absolute;left:0;top:7.5cqw;display:flex;gap:2cqw;transition:transform .25s}
-.tile{width:11cqw;height:11cqw;border-radius:1.6cqw;display:grid;place-items:center;font-size:5.6cqw;background:rgba(255,255,255,.16);box-shadow:inset 0 .2cqw .2cqw rgba(255,255,255,.5),0 .5cqw 1cqw rgba(0,0,0,.35);transition:transform .25s,background .25s}
+#row{position:absolute;left:50%;top:7.5cqw;display:flex;gap:2cqw;transition:transform .25s}
+.tile{flex-shrink:0;width:11cqw;height:11cqw;border-radius:1.6cqw;display:grid;place-items:center;font-size:5.6cqw;background:rgba(255,255,255,.16);box-shadow:inset 0 .2cqw .2cqw rgba(255,255,255,.5),0 .5cqw 1cqw rgba(0,0,0,.35);transition:transform .25s,background .25s}
 .tile.s{transform:scale(1.25);background:linear-gradient(#fff6,#fff2)}
 #ttl{position:absolute;bottom:5cqw;width:100%;text-align:center;font-size:2.4cqw;font-weight:600}
 #menu .hint{position:absolute;bottom:1cqw;width:100%;text-align:center;font-size:1.1cqw;opacity:.75}
 
-/* Interactive L/R Shoulder Bumpers slid slightly down */
-.sh{top:1.5cqh;width:14cqw;height:3.6cqh;border-radius:0 0 1.6cqw 1.6cqw;background:linear-gradient(#4a4f5c,#1c1e25);display:grid;place-items:center;font-size:1.1cqw;color:#8b92a1;cursor:pointer;z-index:10;box-shadow:0 .2cqw .4cqw rgba(0,0,0,.5)}
+.sh{top:1.5cqh;width:14cqw;height:3.6cqw;border-radius:0 0 1.6cqw 1.6cqw;background:linear-gradient(#4a4f5c,#1c1e25);display:grid;place-items:center;font-size:1.1cqw;color:#8b92a1;cursor:pointer;z-index:10;box-shadow:0 .2cqw .4cqw rgba(0,0,0,.5)}
 .sh.on{filter:brightness(1.5);transform:scale(.97)}
 
 .dp{left:3cqw;top:50%;transform:translateY(-62%);width:12cqw;height:12cqw;display:grid;grid:1fr 1fr 1fr/1fr 1fr 1fr}
@@ -54,26 +53,23 @@ svg.i{display:block}.tile svg{width:6cqw;height:6cqw}.fb svg{width:2.6cqw;height
 .fsb{left:50%;transform:translateX(-50%);top:1.2cqh;width:3.4cqw;height:2.2cqw;border:0;border-radius:.5cqw;padding:.35cqw;color:#9aa2b3;background:#23262e}.fsb svg{width:100%;height:100%}
 #xh{position:absolute;left:50%;top:50%;width:3cqw;height:3cqw;margin:-1.5cqw;z-index:3;display:none;pointer-events:none;color:#fff;filter:drop-shadow(0 0 2px #000)}#xh svg{width:100%;height:100%}
 
-/* Settings / App Store UI Panels */
-#set{position:absolute;inset:0;z-index:6;display:none;padding:2cqw 5cqw;font-size:1.7cqw;color:#fff;background:linear-gradient(#0b2f6e,#06142e);overflow-y:auto}
-#set b{display:block;font-size:2.4cqw;margin-bottom:.8cqw}
-#set div{display:flex;justify-content:space-between;padding:.6cqw 1.2cqw;margin:.2cqw 0;border-radius:.8cqw}
+#set{position:absolute;inset:0;z-index:6;display:none;padding:2cqw 4cqw;font-size:1.6cqw;color:#fff;background:linear-gradient(#0b2f6e,#06142e);overflow-y:auto}
+#set b{display:block;font-size:2.2cqw;margin-bottom:.6cqw}
+#set div{display:flex;justify-content:space-between;align-items:center;padding:.5cqw 1cqw;margin:.2cqw 0;border-radius:.6cqw}
 #set .a{background:rgba(255,255,255,.22)}
-#set small{display:block;margin-top:1cqw;text-align:center;font-size:1.1cqw;opacity:.7}
+#set small{display:block;margin-top:.8cqw;text-align:center;font-size:1cqw;opacity:.7}
 
-/* Store Modal */
 #store{position:absolute;inset:0;z-index:6;display:none;padding:2cqw 4cqw;background:linear-gradient(#141c2e,#0a0e17);color:#fff;overflow-y:auto}
-#store b{font-size:2.4cqw;display:block;margin-bottom:1cqw}
-.store-item{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.1);padding:.8cqw 1.4cqw;margin:.5cqw 0;border-radius:.8cqw}
+#store b{font-size:2.2cqw;display:block;margin-bottom:.8cqw}
+.store-item{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.1);padding:.6cqw 1.2cqw;margin:.4cqw 0;border-radius:.6cqw;font-size:1.5cqw}
 .store-item.a{background:rgba(255,255,255,.25)}
-.store-btn{background:#3fd08a;color:#000;border:0;padding:.4cqw 1cqw;border-radius:.5cqw;font-weight:700;cursor:pointer}
+.store-btn{background:#3fd08a;color:#000;border:0;padding:.4cqw .9cqw;border-radius:.5cqw;font-weight:700;cursor:pointer}
 .store-btn.del{background:#e2504f;color:#fff}
 
 .rot{display:none;position:fixed;inset:0;place-items:center;font-size:6vw;background:var(--bg);z-index:100;color:#fff}
 @media(orientation:portrait){.psp{display:none}.rot{display:grid}}
 </style></head><body>
 
-<!-- Boot Screen -->
 <div id="boot"><div id="boot-inner"><h1>Sony Computer Entertainment</h1></div></div>
 
 <div class="psp">
@@ -89,8 +85,7 @@ svg.i{display:block}.tile svg{width:6cqw;height:6cqw}.fb svg{width:2.6cqw;height
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-/* Hide boot screen after animation */
-setTimeout(()=>{const b=$('#boot');b.style.opacity=0;setTimeout(()=>b.remove(),800)},2200);
+setTimeout(()=>{const b=$('#boot');if(b){b.style.opacity=0;setTimeout(()=>b.remove(),800)}},2200);
 
 const T=THREE,$=s=>document.querySelector(s),K={};let P={};
 const press=(k,v)=>{if(v&&!K[k]){P[k]=1;sfx('click')}K[k]=v};
@@ -98,7 +93,6 @@ document.querySelectorAll('[data-k]').forEach(b=>{const k=b.dataset.k;
 b.onpointerdown=e=>{e.preventDefault();b.classList.add('on');press(k,1)};
 b.onpointerup=b.onpointercancel=b.onpointerleave=()=>{b.classList.remove('on');press(k,0)}});
 
-/* Shoulder bumpers interactive touch binding */
 ['l','r'].forEach(side=>{
   const el=$('#btn-'+side);
   el.onpointerdown=e=>{e.preventDefault();el.classList.add('on');press(side=='l'?'q':'t',1)};
@@ -109,7 +103,6 @@ const KM={ArrowUp:'u',w:'u',ArrowDown:'d',s:'d',ArrowLeft:'l',a:'l',ArrowRight:'
 onkeydown=e=>{const k=KM[e.key];if(k){e.preventDefault();press(k,1)}};
 onkeyup=e=>{const k=KM[e.key];if(k)press(k,0)};
 
-/* Persistent User Data & Settings */
 const STORE_KEY='psp_user_data_v1';
 let UserData = JSON.parse(localStorage.getItem(STORE_KEY)) || {
   name: 'Adrian',
@@ -124,7 +117,6 @@ let UserData = JSON.parse(localStorage.getItem(STORE_KEY)) || {
 const saveUserData=()=>localStorage.setItem(STORE_KEY, JSON.stringify(UserData));
 $('#user-display').textContent='User: '+UserData.name;
 
-/* helpers */
 const tex=(w,f,r)=>{const c=document.createElement('canvas');c.width=c.height=w;f(c.getContext('2d'),w);const t=new T.CanvasTexture(c);t.wrapS=t.wrapT=T.RepeatWrapping;t.anisotropy=4;r&&t.repeat.set(r[0],r[1]);return t};
 const nz=c=>tex(64,(x,w)=>{x.fillStyle=c;x.fillRect(0,0,w,w);for(let i=0;i<350;i++){x.fillStyle=`rgba(${Math.random()<.5?'255,255,255':'0,0,0'},${Math.random()*.16})`;x.fillRect(Math.random()*w,Math.random()*w,2+Math.random()*3,2+Math.random()*3)}x.strokeStyle='rgba(255,255,255,.35)';x.lineWidth=3;x.strokeRect(1,1,w-2,w-2)});
 const grid=(a,b,l)=>tex(128,(x,w)=>{x.fillStyle=a;x.fillRect(0,0,w,w);x.strokeStyle=b;x.lineWidth=5;x.strokeRect(0,0,w,w);if(l){x.fillStyle=l;x.fillRect(w/2-3,0,6,w)}});
@@ -134,7 +126,6 @@ const base=(bg,fg)=>{const s=new T.Scene();s.background=new T.Color(bg);s.fog=ne
 const rnd=(a,b)=>a+Math.random()*(b-a);
 const BOX=(w,h,d)=>new T.BoxGeometry(w,h,d),SPH=(r,n)=>new T.SphereGeometry(r,n||24,n||24);
 
-/* Game Generators */
 function racer(){const s=base(0x0a0620,[25,100]),c=cam(),g={s,c,o:0,sc:0,q:1};c.position.set(0,4.2,8);c.lookAt(0,0,-12);
 const rt=grid('#15122e','#ff3cac','#fff');rt.repeat.set(3,50);
 const rd=new T.Mesh(new T.PlaneGeometry(12,200),M(rt,{emissive:0x180828}));rd.rotation.x=-Math.PI/2;rd.position.z=-80;s.add(rd);
@@ -289,7 +280,6 @@ const f=b.m.rotation.y;p.x=Math.max(-30,Math.min(30,p.x-Math.sin(f)*mv*dt));p.z=
 c.position.set(pp.x,dead>0?.4:1.7,pp.z);c.rotation.set(0,yaw,dead>0?.8:0)};
 g.h=()=>(g.o?'MATCH WON\n':'')+'HP '+Math.round(hp)+'   AMMO '+(rl>0?'RELOADING':ammo+'/30')+'   KILLS '+g.sc+'/15   DEATHS '+dth+'\nCross: fire   Square: reload   Triangle: sprint'+(dead>0?'\nRESPAWNING':'');return g}
 
-/* Master Registry of Games & Store */
 const ALL_GAMES={
   'Neon Racer':['car',racer],
   'Star Strike':['rocket',space],
@@ -310,14 +300,16 @@ const R=new T.WebGLRenderer({canvas:$('#cv'),antialias:true});R.setPixelRatio(Ma
 let G=null,sel=0;const row=$('#row'),menu=$('#menu'),hud=$('#hud');
 const show=()=>{
   row.innerHTML=GAMES.map(g=>`<div class="tile">${svg(IC[g[1]])}</div>`).join('');
-  [...row.children].forEach((t,i)=>t.classList.toggle('s',i==sel));
-  row.style.transform=`translateX(${29.3-(sel*13+5.5)}cqw)`;
+  const tiles=[...row.children];
+  tiles.forEach((t,i)=>t.classList.toggle('s',i==sel));
+  // Perfectly center the selected tile inside the horizontal carousel viewport
+  const offset = 29.3 - (sel * 13 + 5.5);
+  row.style.transform=`translateX(${offset}cqw)`;
   $('#ttl').textContent=GAMES[sel][0];
 };
 const fit=()=>{const e=$('.glass'),w=e.clientWidth,h=e.clientHeight;R.setSize(w,h,false);if(G){G.c.aspect=w/h;G.c.updateProjectionMatrix()}};
 new ResizeObserver(fit).observe($('.glass'));
 
-/* Audio & Settings */
 let AC,go=0,ls=0,inS=0,inStore=0,ri=0,stRi=0;
 const FX={click:[700,.04,'square',.15,500],coin:[880,.14,'sine',.45,1500],shoot:[420,.1,'sawtooth',.3,70],hit:[220,.14,'square',.4,50],over:[330,.8,'sawtooth',.45,40]};
 function sfx(n){const d=FX[n];if(!d||!UserData.sound)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();AC.resume();const o=AC.createOscillator(),v=AC.createGain(),t=AC.currentTime;o.type=d[2];o.frequency.setValueAtTime(d[0],t);o.frequency.exponentialRampToValueAtTime(d[4],t+d[1]);v.gain.setValueAtTime(d[3]*UserData.vol,t);v.gain.exponentialRampToValueAtTime(.001,t+d[1]);o.connect(v);v.connect(AC.destination);o.start(t);o.stop(t+d[1])}catch(e){}}
@@ -329,7 +321,6 @@ const toggleFS=()=>{const e=document.documentElement;document.fullscreenElement?
 document.querySelectorAll('.fb,.dp button').forEach(b=>{const k=b.dataset.k,m={t:'tri',o:'circ',x:'cross',q:'sq'}[k]||'ar';b.innerHTML=svg(IC[m]);if(m=='ar')b.firstChild.style.transform=`rotate(${{u:0,r:90,d:180,l:270}[k]}deg)`});
 $('#fs').innerHTML=svg(IC.fs);$('#fs').onclick=toggleFS;$('#xh').innerHTML=svg('<path d="M12 3v6M12 15v6M3 12h6M15 12h6"/>');
 
-/* Expanded Settings UI */
 const setEl=$('#set'),SR=[
   ['User Profile',()=>UserData.name],
   ['Sound',()=>UserData.sound?'On':'Off'],
@@ -355,14 +346,13 @@ const chgS=d=>{
   saveUserData();
 };
 
-/* App Store / Download Games UI */
 const storeEl=$('#store');
 const drawStore=()=>{
   const avail=Object.keys(ALL_GAMES);
   storeEl.innerHTML='<b>App Store (Download Games)</b>'+avail.map((g,i)=>{
     const inst=UserData.installed.includes(g);
     return `<div class="store-item ${i==stRi?'a':''}"><span>${g}</span><button class="store-btn ${inst?'del':''}">${inst?'Uninstall':'Install'}</button></div>`;
-  }).join('')+'<small style="text-align:center;display:block;margin-top:1cqw;opacity:.7">Up/Down: select   Cross: install/uninstall   Circle: back</small>';
+  }).join('')+'<small style="text-align:center;display:block;margin-top:.8cqw;opacity:.7">Up/Down: select   Cross: install/uninstall   Circle: back</small>';
 };
 const toggleStoreGame=()=>{
   const avail=Object.keys(ALL_GAMES),g=avail[stRi];
