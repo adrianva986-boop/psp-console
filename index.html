@@ -9,11 +9,11 @@
 * { box-sizing: border-box; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
 html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow: hidden; font-family: system-ui, sans-serif; color: #cfd5e2; display: flex; align-items: center; justify-content: center; }
 
-/* Fully Responsive Scaling Container */
+/* Perfect Scaled PSP Body */
 .psp {
   position: relative;
   width: 100vw;
-  height: 56.25vw; /* 16:9 Aspect Ratio */
+  height: 56.25vw;
   max-height: 100vh;
   max-width: 177.78vh;
   background: linear-gradient(#2c303a, #12141a 9%, #090a0d 55%, #030304);
@@ -27,8 +27,8 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
 
 /* Screen Bezel */
 .bez {
-  width: 58%;
-  height: 65%;
+  width: 56%;
+  height: 64%;
   border-radius: 1.4vw;
   padding: 0.9vw;
   background: linear-gradient(#c7ccd6, #7c828f 40%, #4a4f5a);
@@ -61,22 +61,22 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
   place-items: center;
   background: #111;
   color: #fff;
-  font-size: 1.8vw;
+  font-size: 1.6vw;
   text-align: center;
 }
 
 /* D-Pad (Left) */
 .pad {
-  left: 6%;
+  left: 7%;
   top: 50%;
   transform: translateY(-50%);
-  width: 18%;
-  height: 50%;
+  width: 16%;
+  height: 48%;
 }
 .pad::before, .pad::after {
   content: "";
   position: absolute;
-  border-radius: 1.2vw;
+  border-radius: 1vw;
   background: linear-gradient(#4b505c, #1d2027);
   box-shadow: inset 0 0.2vw 0.1vw rgba(255,255,255,.35), 0 0.5vw 0.8vw #000;
 }
@@ -85,7 +85,7 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
 .pad b {
   position: absolute;
   z-index: 1;
-  font-size: 1.6vw;
+  font-size: 1.5vw;
   color: #aab1c0;
   width: 33%;
   height: 33%;
@@ -93,20 +93,20 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
   place-items: center;
 }
 
-/* Face Buttons (Right) */
+/* Face Buttons (Right) - Clean Diamond Layout */
 .face {
-  right: 6%;
+  right: 7%;
   top: 50%;
   transform: translateY(-50%);
-  width: 18%;
-  height: 50%;
+  width: 16vw;
+  height: 48%;
 }
 .fb {
   position: absolute;
-  width: 32%;
-  height: 32%;
+  width: 4.8vw;
+  height: 4.8vw;
   border-radius: 50%;
-  font-size: 2.2vw;
+  font-size: 2vw;
   display: grid;
   place-items: center;
   background: radial-gradient(circle at 35% 28%, #8d93a1, #2a2d35 65%, #0e0f12);
@@ -115,16 +115,21 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
   padding: 0;
   border: 0;
 }
-.fb.on { transform: scale(.92); filter: brightness(1.5); }
+/* Absolute positioning for the diamond shape */
+.fb.triangle { top: 0%; left: 35%; color: #3fd08a; }
+.fb.circle   { top: 35%; right: 0%; color: #e2504f; }
+.fb.cross    { bottom: 0%; left: 35%; color: #5aa0ff; }
+.fb.square   { top: 35%; left: 0%; color: #e07ab8; }
+.fb.on       { transform: scale(.92); filter: brightness(1.5); }
 
 /* Start / Select */
 .ss {
-  right: 25%;
-  bottom: 5%;
-  width: 16%;
-  height: 8%;
+  right: 28%;
+  bottom: 4%;
+  width: 14%;
+  height: 7%;
   display: flex;
-  gap: 4%;
+  gap: 6%;
 }
 .ss button {
   flex: 1;
@@ -164,10 +169,10 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
     <div>PSP Shell Ready<br><small style="opacity:0.6;font-size:1vw">Waiting for Game Core...</small></div>
   </div></div></div>
   <div class="face">
-    <button class="fb" style="left:34%;top:0;color:#3fd08a">△</button>
-    <button class="fb" style="left:68%;top:34%;color:#e2504f">○</button>
-    <button class="fb" style="left:34%;top:68%;color:#5aa0ff">✕</button>
-    <button class="fb" style="left:0;top:34%;color:#e07ab8">□</button>
+    <button class="fb triangle">△</button>
+    <button class="fb circle">○</button>
+    <button class="fb cross">✕</button>
+    <button class="fb square">□</button>
   </div>
   <div class="ss"><button>Select</button><button>Start</button></div>
 </div>
