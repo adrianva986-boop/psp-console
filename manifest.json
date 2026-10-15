@@ -1,0 +1,9 @@
+{
+  "name": "PSP Handheld Console",
+  "short_name": "PSP Console",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#07080b",
+  "theme_color": "#07080b"
+}
