@@ -21,7 +21,8 @@ html,body{height:100%;overflow:hidden;background:radial-gradient(ellipse at 50% 
 .bz{position:absolute;left:180px;top:42px;width:600px;height:342px;background:#000;border-radius:8px;box-shadow:0 0 0 3px #14151a,inset 0 0 12px #000}
 #scr{position:absolute;left:12px;top:12px;width:576px;height:324px;overflow:hidden;color:#fff;background:#123}
 #scr canvas{position:absolute;left:0;top:0;width:576px;height:324px}
-#st{position:absolute;right:12px;top:8px;font:600 12px sans-serif;text-shadow:0 1px 3px #0008}
+#xmb{position:absolute;inset:0}
+#st{position:absolute;right:12px;top:8px;font:600 12px sans-serif;text-shadow:0 1px 3px #0008;z-index:10}
 .cat{position:absolute;left:130px;top:30px;width:40px;height:40px;opacity:.65;transition:transform .35s cubic-bezier(.3,.8,.3,1),opacity .35s}
 .cat svg{width:100%;height:100%;filter:drop-shadow(0 0 4px rgba(255,255,255,.55))}
 .cat em{position:absolute;top:56px;left:-40px;width:120px;text-align:center;font:600 12px sans-serif;opacity:0;transition:opacity .3s}
@@ -35,7 +36,7 @@ html,body{height:100%;overflow:hidden;background:radial-gradient(ellipse at 50% 
 .box{width:380px;padding:16px 18px;background:rgba(10,12,22,.9);border:1px solid #fff5;border-radius:6px;font-size:13px;line-height:1.5}
 .box h3{font-size:15px;margin-bottom:6px}.box p{opacity:.85}.box .ok{margin-top:10px;text-align:right;font-size:12px;opacity:.7}
 #pz{background:rgba(0,0,0,.93)}.pz .row{padding:6px 14px;font-size:15px;opacity:.6;border-radius:4px}.pz .row.on{opacity:1;background:rgba(255,255,255,.18)}
-#toast{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);padding:5px 12px;background:rgba(0,0,0,.65);border-radius:12px;font:600 12px sans-serif;transition:opacity .3s}
+#toast{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);padding:5px 12px;background:rgba(0,0,0,.65);border-radius:12px;font:600 12px sans-serif;transition:opacity .3s;z-index:20}
 #rot{position:fixed;inset:0;z-index:9;background:#050506;color:#fff;display:none;flex-direction:column;gap:14px;align-items:center;justify-content:center;text-align:center;padding:20px;font-size:16px}
 #rot i{font-size:48px;font-style:normal;display:block;animation:tilt 2s ease-in-out infinite}
 #rot button{touch-action:auto;font:600 14px sans-serif;padding:10px 20px;border-radius:20px;border:0;background:#fff;color:#000}
@@ -201,11 +202,8 @@ function press(b){
  if(!$('#dlg').hidden){if(b=='crs'\vert{}\vert{}b=='cir'\vert{}\vert{}b=='home'){$('#dlg').hidden=true;blip(400)}return}
  if(mode=='game'){b=='home'?pause(1):G.press&&G.press(b);return}
  if(mode=='pause'){if(b=='up'||b=='down'){pzs^=1;pzr();blip()}else if(b=='crs')pzs?quit():pause(0);else if(b=='home'||b=='cir')pause(0);return}
- 
- /* L & R Shoulder Buttons to navigate categories */
  if(b=='L'){cat=(cat-1+CAT.length)%CAT.length;blip(480);lay();return}
  if(b=='R'){cat=(cat+1)%CAT.length;blip(580);lay();return}
-
  if(b=='left'&&cat>0){cat--;blip()}else if(b=='right'&&cat<5){cat++;blip()}
  else if(b=='up'&&sel[cat]>0){sel[cat]--;blip(600)}else if(b=='down'&&sel[cat]<data[cat].length-1){sel[cat]++;blip(600)}
  else if(b=='crs'){const o=data[cat][sel[cat]];if(o&&o.act){blip(800);o.act()}}
@@ -240,7 +238,8 @@ function wave(t){const w=288,h=162,g=wc.createLinearGradient(0,0,0,h);
  g.addColorStop(0,`hsl(${hue},70%,62%)`);g.addColorStop(1,`hsl(${hue+25},75%,24%)`);wc.fillStyle=g;wc.fillRect(0,0,w,h);
  for(let k=0;k<4;k++){wc.beginPath();wc.moveTo(0,h);
   for(let x=0;x<=w;x+=6)wc.lineTo(x,h*.55+k*14+Math.sin(x/(60+k*18)+t*(.5+k*.2)+k*2)*(10+k*4)+Math.sin(x/23-t*.7)*3);
-  wc.lineTo(w,h);wc.fillStyle=`hsla(${hue+k*8},80%,${72-k*8}%,.16)`;wc.fill()}}
+  wc.lineTo(w,h);wc.fillStyle=`hsla(${hue+k*8},80%,${72-k*8}%,.16)`
+  wc.fill()}}
 const clock=()=>$('#st').textContent=new Date().toLocaleString([],{month:'numeric',day:'numeric',hour:'numeric',minute:'2-digit'});
 let last=performance.now();
 function frame(now){
@@ -251,9 +250,17 @@ function frame(now){
  requestAnimationFrame(frame);
 }
 
-/* ---------- boot ---------- */
-function fit(){S=Math.min(innerWidth/960,innerHeight/430);const w=innerWidth/S,h=innerHeight/S,ox=(w-960)/2,oy=(h-430)/2,p=$('#psp'),c=$('#ctr');
- p.style.width=w+'px';p.style.height=h+'px';p.style.transform=`scale(${S})`;c.style.left=ox+'px';c.style.top=oy+'px';$('.shell').style.top=(oy+16)+'px'}
+/* ---------- boot with visualViewport scaling ---------- */
+function fit(){
+ const targetW=960, targetH=430;
+ const vw = window.visualViewport ? window.visualViewport.width : innerWidth;
+ const vh = window.visualViewport ? window.visualViewport.height : innerHeight;
+ S=Math.min(vw/targetW, vh/targetH);
+ const w=vw/S, h=vh/S, ox=(w-targetW)/2, oy=(h-targetH)/2, p=$('#psp'), c=$('#ctr');
+ p.style.width=w+'px';p.style.height=h+'px';p.style.transform=`scale(${S})`;
+ c.style.left=ox+'px';c.style.top=oy+'px';$('.shell').style.top=(oy+16)+'px';
+}
+if(window.visualViewport){window.visualViewport.onresize=fit;window.visualViewport.onscroll=fit;}
 addEventListener('resize',fit);fit();
 $('#fs').onclick=async()=>{try{await document.documentElement.requestFullscreen();await screen.orientation.lock('landscape')}catch(e){}};
 build();lay();clock();setInterval(clock,15000);requestAnimationFrame(frame);
