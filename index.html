@@ -66,7 +66,6 @@ html,body{margin:0;height:100%;background:var(--bg);display:grid;place-items:cen
     <div id="quest-tracker">QUEST: Defeat Slimes (0/3)</div>
     <div id="save-notification">Inch-by-Inch Saved!</div>
 
-    <!-- In-Game Menu & Inventory -->
     <div id="game-menu">
       <h2>PAUSE MENU / INVENTORY</h2>
       <div class="menu-grid">
@@ -85,7 +84,6 @@ html,body{margin:0;height:100%;background:var(--bg);display:grid;place-items:cen
       </div>
     </div>
 
-    <!-- World Map -->
     <div id="world-map">
       <h2>TEYVAT WORLD MAP</h2>
       <div id="map-canvas">
@@ -115,7 +113,7 @@ document.querySelectorAll('[data-k]').forEach(b=>{
     if(k=='r')input.right=val;
     if(k=='u')input.up=val;
     if(k=='d')input.down=val;
-    if(k=='q')input.attack=val; // Square = Attack
+    if(k=='q')input.attack=val;
     if(k=='st') { if(val) toggleMenu(); }
     if(k=='sel') { if(val) toggleMap(); }
   };
@@ -133,27 +131,24 @@ function toggleMap(){
   map.style.display = map.style.display === 'flex' ? 'none' : 'flex';
 }
 
-// Babylon.js Engine & Save Data
 const canvas = document.getElementById("renderCanvas");
-const engine = new BABYLON.Engine(canvas, true);
+const engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
 
 const SAVE_KEY = 'genshin_psp_rpg_save';
 let gameData = JSON.parse(localStorage.getItem(SAVE_KEY)) || {
-  x: 0, y: 0.5, z: 0,
+  x: 0, y: 0.8, z: 0,
   hp: 100,
   mora: 0,
   slimesDefeated: 0,
   jelly: 0
 };
 
-// Inch-by-inch autosave every 60 seconds
 setInterval(() => {
   if(player) {
     gameData.x = player.position.x;
     gameData.y = player.position.y;
     gameData.z = player.position.z;
     localStorage.setItem(SAVE_KEY, JSON.stringify(gameData));
-    
     const notif = document.getElementById('save-notification');
     notif.style.opacity = 1;
     setTimeout(()=> notif.style.opacity = 0, 1500);
@@ -166,32 +161,29 @@ const createScene = function() {
     const scene = new BABYLON.Scene(engine);
     scene.clearColor = new BABYLON.Color3(0.55, 0.75, 0.95);
 
-    const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 3, 10, BABYLON.Vector3.Zero(), scene);
+    const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 3, 12, BABYLON.Vector3.Zero(), scene);
     camera.attachControl(canvas, true);
 
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
-    light.intensity = 0.85;
+    light.intensity = 0.9;
 
-    // Terrain
     const ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 120, height: 120}, scene);
     const groundMat = new BABYLON.StandardMaterial("gMat", scene);
     groundMat.diffuseColor = new BABYLON.Color3(0.2, 0.55, 0.25);
     ground.material = groundMat;
 
-    // Player
-    player = BABYLON.MeshBuilder.CreateCapsule("player", {radius: 0.4, height: 1.6}, scene);
+    player = BABYLON.MeshBuilder.CreateCapsule("player", {radius: 0.5, height: 1.8}, scene);
     player.position = new BABYLON.Vector3(gameData.x, gameData.y, gameData.z);
     const pMat = new BABYLON.StandardMaterial("pMat", scene);
     pMat.diffuseColor = new BABYLON.Color3(0.9, 0.2, 0.3);
     player.material = pMat;
 
-    // Enemies (Slimes)
     const slimes = [];
-    for(let i=0; i<5; i++){
-        const slime = BABYLON.MeshBuilder.CreateSphere("slime"+i, {diameter: 1.2}, scene);
-        slime.position = new BABYLON.Vector3((Math.random()-0.5)*50, 0.6, (Math.random()-0.5)*50);
+    for(let i=0; i<6; i++){
+        const slime = BABYLON.MeshBuilder.CreateSphere("slime"+i, {diameter: 1.5}, scene);
+        slime.position = new BABYLON.Vector3((Math.random()-0.5)*40, 0.75, (Math.random()-0.5)*40);
         const sMat = new BABYLON.StandardMaterial("sMat", scene);
-        sMat.diffuseColor = new BABYLON.Color3(0.1, 0.8, 0.3); // Green slime
+        sMat.diffuseColor = new BABYLON.Color3(0.1, 0.8, 0.3);
         slime.material = sMat;
         slime.health = 2;
         slimes.push(slime);
@@ -207,26 +199,24 @@ const createScene = function() {
         if(input.left) player.rotation.y -= 0.05;
         if(input.right) player.rotation.y += 0.05;
 
-        let speed = input.up ? 0.16 : 0.08;
-        if(input.down) speed = -0.06;
+        let speed = input.up ? 0.18 : 0.09;
+        if(input.down) speed = -0.07;
 
         const forward = new BABYLON.Vector3(Math.sin(player.rotation.y), 0, Math.cos(player.rotation.y));
         player.position.addInPlace(forward.scale(speed));
         camera.target = player.position;
 
-        // Update World Map Marker Position
         const marker = document.getElementById('player-marker');
         if(marker) {
             marker.style.left = (50 + (player.position.x / 60) * 50) + '%';
             marker.style.top = (50 + (player.position.z / 60) * 50) + '%';
         }
 
-        // Combat System (Square Button Attack)
         if(attackCooldown > 0) attackCooldown--;
         if(input.attack && attackCooldown === 0) {
-            attackCooldown = 25; // Cooldown frames
+            attackCooldown = 25;
             slimes.forEach(slime => {
-                if(player.position.distanceTo(slime.position) < 3.5) {
+                if(player.position.distanceTo(slime.position) < 4.0) {
                     slime.health--;
                     slime.scaling.scaleInPlace(0.8);
                     if(slime.health <= 0) {
@@ -252,5 +242,8 @@ const createScene = function() {
 
 const scene = createScene();
 engine.runRenderLoop(() => { scene.render(); });
+
+// Ensure canvas dimensions sync instantly with PSP bezel glass container
 window.addEventListener("resize", () => { engine.resize(); });
+setTimeout(() => { engine.resize(); }, 300);
 </script></body></html>
