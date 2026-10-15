@@ -2,33 +2,34 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#07080b">
 <link rel="manifest" href="manifest.json">
 <title>PSP Handheld Console</title>
 <style>
 * { box-sizing: border-box; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
-html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow: hidden; font-family: system-ui, sans-serif; color: #cfd5e2; }
+html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow: hidden; font-family: system-ui, sans-serif; color: #cfd5e2; display: flex; align-items: center; justify-content: center; }
 
-/* Full Edge-to-Edge Fluid Shell */
+/* Perfect Scaled 16:9 PSP Body that fits viewport */
 .psp {
-  position: absolute;
-  inset: 0;
+  position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 56.25vw; /* Maintains strict 16:9 widescreen ratio */
+  max-height: 100vh;
+  max-width: 177.78vh;
   background: linear-gradient(#2c303a, #12141a 9%, #090a0d 55%, #030304);
-  box-shadow: inset 0 0.4vw 0.2vw rgba(255,255,255,.3), inset 0 -0.8vw 1.6vw #000;
-  display: block;
+  box-shadow: inset 0 0.4vw 0.2vw rgba(255,255,255,.3), inset 0 -0.8vw 1.6vw #000, 0 0 0 0.3vw #3a3f4c, 0 2vw 5vw #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .psp > * { position: absolute; }
 
-/* Screen Bezel - Fluid Central Display */
+/* Screen Bezel - Centered precisely */
 .bez {
-  left: 21vw;
-  top: 13vh;
-  width: 58vw;
-  height: 68vh;
+  width: 54%;
+  height: 62%;
   border-radius: 1.4vw;
   padding: 0.8vw;
   background: linear-gradient(#c7ccd6, #7c828f 40%, #4a4f5a);
@@ -67,11 +68,11 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
 
 /* D-Pad (Left) */
 .pad {
-  left: 4vw;
+  left: 5%;
   top: 50%;
   transform: translateY(-50%);
-  width: 14vw;
-  height: 65vh;
+  width: 16%;
+  height: 52%;
 }
 .pad::before, .pad::after {
   content: "";
@@ -85,7 +86,7 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
 .pad b {
   position: absolute;
   z-index: 1;
-  font-size: 1.8vw;
+  font-size: 1.4vw;
   color: #aab1c0;
   width: 33%;
   height: 33%;
@@ -93,20 +94,20 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
   place-items: center;
 }
 
-/* Face Buttons (Right) */
+/* Face Buttons (Right) - Clean Diamond Layout */
 .face {
-  right: 4vw;
+  right: 5%;
   top: 50%;
   transform: translateY(-50%);
-  width: 15vw;
-  height: 65vh;
+  width: 16%;
+  height: 52%;
 }
 .fb {
   position: absolute;
-  width: 4.8vw;
-  height: 4.8vw;
+  width: 4.2vw;
+  height: 4.2vw;
   border-radius: 50%;
-  font-size: 2vw;
+  font-size: 1.8vw;
   display: grid;
   place-items: center;
   background: radial-gradient(circle at 35% 28%, #8d93a1, #2a2d35 65%, #0e0f12);
@@ -115,27 +116,27 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
   padding: 0;
   border: 0;
 }
-.fb.triangle { top: 12%; left: 50%; transform: translateX(-50%); color: #3fd08a; }
-.fb.circle   { top: 44%; right: 2%; transform: translateY(-50%); color: #e2504f; }
-.fb.cross    { bottom: 12%; left: 50%; transform: translateX(-50%); color: #5aa0ff; }
-.fb.square   { top: 44%; left: 2%; transform: translateY(-50%); color: #e07ab8; }
+.fb.triangle { top: 0; left: 50%; transform: translateX(-50%); color: #3fd08a; }
+.fb.circle   { top: 50%; right: 0; transform: translateY(-50%); color: #e2504f; }
+.fb.cross    { bottom: 0; left: 50%; transform: translateX(-50%); color: #5aa0ff; }
+.fb.square   { top: 50%; left: 0; transform: translateY(-50%); color: #e07ab8; }
 .fb.on       { transform: scale(.92) !important; filter: brightness(1.5); }
 
-/* Start / Select */
+/* Start / Select Buttons - Neatly placed inside bounds */
 .ss {
   left: 50%;
   transform: translateX(-50%);
-  bottom: 2vh;
-  width: 16vw;
-  height: 6vh;
+  bottom: 3%;
+  width: 14%;
+  height: 7%;
   display: flex;
-  gap: 1vw;
+  gap: 6%;
 }
 .ss button {
   flex: 1;
   height: 100%;
-  border-radius: 1.5vw;
-  font-size: 1vw;
+  border-radius: 1.2vw;
+  font-size: 0.9vw;
   color: #aab1c0;
   background: linear-gradient(#444955, #1a1c22);
   box-shadow: inset 0 0.15vw 0.1vw rgba(255,255,255,.3), 0 0.3vw 0.5vw #000;
@@ -167,7 +168,7 @@ html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow
     <b style="left:33%;top:0">▲</b><b style="left:33%;top:67%">▼</b><b style="left:0;top:33%">◀</b><b style="left:67%;top:33%">▶</b>
   </div>
   <div class="bez"><div class="glass"><div id="screen-content">
-    <div>PSP Shell Ready<br><small style="opacity:0.6;font-size:1.2vw">Waiting for Game Core...</small></div>
+    <div>PSP Shell Ready<br><small style="opacity:0.6;font-size:1vw">Waiting for Game Core...</small></div>
   </div></div></div>
   <div class="face">
     <button class="fb triangle">△</button>
