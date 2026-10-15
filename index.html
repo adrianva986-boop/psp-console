@@ -7,66 +7,179 @@
 <title>PSP Handheld Console</title>
 <style>
 * { box-sizing: border-box; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
-html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow: hidden; font-family: system-ui, sans-serif; color: #cfd5e2; display: grid; place-items: center; }
+html, body { margin: 0; width: 100%; height: 100%; background: #07080b; overflow: hidden; font-family: system-ui, sans-serif; color: #cfd5e2; display: flex; align-items: center; justify-content: center; }
+
+/* Fully Responsive Scaling Container */
 .psp {
-  position: relative; width: 100vw; height: 100vh; max-height: 56.25vw; max-width: 177.78vh;
+  position: relative;
+  width: 100vw;
+  height: 56.25vw; /* 16:9 Aspect Ratio */
+  max-height: 100vh;
+  max-width: 177.78vh;
   background: linear-gradient(#2c303a, #12141a 9%, #090a0d 55%, #030304);
   box-shadow: inset 0 0.4vw 0.2vw rgba(255,255,255,.3), inset 0 -0.8vw 1.6vw #000, 0 0 0 0.3vw #3a3f4c, 0 2vw 5vw #000;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .psp > * { position: absolute; }
+
+/* Screen Bezel */
 .bez {
-  width: 58vw; height: 32.4vw; max-width: 103.11vh; max-height: 57.6vh;
-  border-radius: 1.4vw; padding: 0.9vw; background: linear-gradient(#c7ccd6, #7c828f 40%, #4a4f5a);
+  width: 58%;
+  height: 65%;
+  border-radius: 1.4vw;
+  padding: 0.9vw;
+  background: linear-gradient(#c7ccd6, #7c828f 40%, #4a4f5a);
   box-shadow: 0 0.3vw 0.6vw #000, inset 0 0.2vw 0.1vw rgba(255,255,255,.55);
 }
-.glass { position: relative; width: 100%; height: 100%; border-radius: 0.6vw; overflow: hidden; background: #000; box-shadow: inset 0 0 1.4vw #000; }
-.glass::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 3; background: linear-gradient(160deg, rgba(255,255,255,.1), rgba(255,255,255,0) 35%); }
-#screen-content { width: 100%; height: 100%; display: grid; place-items: center; background: #111; color: #fff; font-size: 2vw; text-align: center; }
-.pad { left: 5vw; top: 50%; transform: translateY(-50%); width: 16vw; height: 16vw; max-width: 28vh; max-height: 28vh; }
-.pad::before, .pad::after { content: ""; position: absolute; border-radius: 1.2vw; background: linear-gradient(#4b505c, #1d2027); box-shadow: inset 0 0.2vw 0.1vw rgba(255,255,255,.35), 0 0.5vw 0.8vw #000; }
-.pad::before { inset: 33% 0; } .pad::after { inset: 0 33%; }
-.pad b { position: absolute; z-index: 1; font-size: 1.6vw; color: #aab1c0; width: 33%; height: 33%; display: grid; place-items: center; }
-.face { right: 5vw; top: 50%; transform: translateY(-50%); width: 16vw; height: 16vw; max-width: 28vh; max-height: 28vh; }
+
+.glass {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.6vw;
+  overflow: hidden;
+  background: #000;
+  box-shadow: inset 0 0 1.4vw #000;
+}
+
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(160deg, rgba(255,255,255,.1), rgba(255,255,255,0) 35%);
+}
+
+#screen-content {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: #111;
+  color: #fff;
+  font-size: 1.8vw;
+  text-align: center;
+}
+
+/* D-Pad (Left) */
+.pad {
+  left: 6%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18%;
+  height: 50%;
+}
+.pad::before, .pad::after {
+  content: "";
+  position: absolute;
+  border-radius: 1.2vw;
+  background: linear-gradient(#4b505c, #1d2027);
+  box-shadow: inset 0 0.2vw 0.1vw rgba(255,255,255,.35), 0 0.5vw 0.8vw #000;
+}
+.pad::before { inset: 33% 0; }
+.pad::after { inset: 0 33%; }
+.pad b {
+  position: absolute;
+  z-index: 1;
+  font-size: 1.6vw;
+  color: #aab1c0;
+  width: 33%;
+  height: 33%;
+  display: grid;
+  place-items: center;
+}
+
+/* Face Buttons (Right) */
+.face {
+  right: 6%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18%;
+  height: 50%;
+}
 .fb {
-  position: absolute; width: 6.2vw; height: 6.2vw; max-width: 11vh; max-height: 11vh; border-radius: 50%;
-  font-size: 3vw; line-height: 6.2vw; text-align: center;
+  position: absolute;
+  width: 32%;
+  height: 32%;
+  border-radius: 50%;
+  font-size: 2.2vw;
+  display: grid;
+  place-items: center;
   background: radial-gradient(circle at 35% 28%, #8d93a1, #2a2d35 65%, #0e0f12);
-  box-shadow: inset 0 0.2vw 0.2vw rgba(255,255,255,.4), 0 0.5vw 0.8vw #000; color: #fff; padding: 0; border: 0;
+  box-shadow: inset 0 0.2vw 0.2vw rgba(255,255,255,.4), 0 0.5vw 0.8vw #000;
+  color: #fff;
+  padding: 0;
+  border: 0;
 }
 .fb.on { transform: scale(.92); filter: brightness(1.5); }
-.ss { right: 22vw; bottom: 3vw; width: 18vw; height: 3.5vw; display: flex; gap: 1vw; }
+
+/* Start / Select */
+.ss {
+  right: 25%;
+  bottom: 5%;
+  width: 16%;
+  height: 8%;
+  display: flex;
+  gap: 4%;
+}
 .ss button {
-  flex: 1; height: 100%; border-radius: 1.7vw; font-size: 1.2vw; color: #aab1c0;
-  background: linear-gradient(#444955, #1a1c22); box-shadow: inset 0 0.15vw 0.1vw rgba(255,255,255,.3), 0 0.3vw 0.5vw #000; border: 0;
+  flex: 1;
+  height: 100%;
+  border-radius: 1.5vw;
+  font-size: 1vw;
+  color: #aab1c0;
+  background: linear-gradient(#444955, #1a1c22);
+  box-shadow: inset 0 0.15vw 0.1vw rgba(255,255,255,.3), 0 0.3vw 0.5vw #000;
+  border: 0;
 }
 .ss button.on { transform: scale(.92); filter: brightness(1.5); }
-.rot { display: none; position: fixed; inset: 0; place-items: center; font-size: 6vw; background: #07080b; z-index: 100; }
-@media(orientation: portrait) { .psp { display: none; } .rot { display: grid; } }
+
+/* Portrait Warning */
+.rot {
+  display: none;
+  position: fixed;
+  inset: 0;
+  place-items: center;
+  font-size: 6vw;
+  background: #07080b;
+  z-index: 100;
+}
+@media(orientation: portrait) {
+  .psp { display: none; }
+  .rot { display: grid; }
+}
 </style>
 </head>
 <body>
+
 <div class="psp">
   <div class="pad">
     <b style="left:33%;top:0">▲</b><b style="left:33%;top:67%">▼</b><b style="left:0;top:33%">◀</b><b style="left:67%;top:33%">▶</b>
   </div>
   <div class="bez"><div class="glass"><div id="screen-content">
-    <div>PSP Shell Ready<br><small style="opacity:0.6;font-size:1.2vw">Waiting for Game Core...</small></div>
+    <div>PSP Shell Ready<br><small style="opacity:0.6;font-size:1vw">Waiting for Game Core...</small></div>
   </div></div></div>
   <div class="face">
-    <button class="fb" style="left:5vw;top:0;color:#3fd08a">△</button>
-    <button class="fb" style="left:9.8vw;top:4.9vw;color:#e2504f">○</button>
-    <button class="fb" style="left:5vw;top:9.8vw;color:#5aa0ff">✕</button>
-    <button class="fb" style="left:0;top:4.9vw;color:#e07ab8">□</button>
+    <button class="fb" style="left:34%;top:0;color:#3fd08a">△</button>
+    <button class="fb" style="left:68%;top:34%;color:#e2504f">○</button>
+    <button class="fb" style="left:34%;top:68%;color:#5aa0ff">✕</button>
+    <button class="fb" style="left:0;top:34%;color:#e07ab8">□</button>
   </div>
   <div class="ss"><button>Select</button><button>Start</button></div>
 </div>
+
 <div class="rot">Turn your phone sideways</div>
+
 <script>
 document.querySelectorAll('.fb, .ss button').forEach(el => {
   el.onpointerdown = e => { e.preventDefault(); el.classList.add('on'); };
   el.onpointerup = el.onpointercancel = () => el.classList.remove('on');
 });
 </script>
+
 </body>
 </html>
